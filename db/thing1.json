@@ -1,0 +1,22 @@
+{
+  "thing1": {
+    "name":"car",
+    "color":"blue",
+    "amount": 30
+  },
+  "thing2": {
+    "name":"ball",
+    "color":"red",
+    "amount": 10
+  },
+  "thing3": {
+    "name":"flowers",
+    "color":"yellow",
+    "amount": 2
+  },
+  "thing4": {
+    "name":"dogs",
+    "color":"white",
+    "amount": 4
+  }
+}

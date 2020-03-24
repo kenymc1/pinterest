@@ -1,0 +1,22 @@
+{
+  "car1": {
+    "name":"honda",
+    "color":"blue",
+    "amount": 30
+  },
+  "car2": {
+    "name":"buick",
+    "color":"red",
+    "amount": 10
+  },
+  "car3": {
+    "name":"ford",
+    "color":"yellow",
+    "amount": 2
+  },
+  "car4": {
+    "name":"dodge",
+    "color":"white",
+    "amount": 4
+  }
+}
