@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import utils from '../../helpers/utils';
 
 const signMeIn = () => {
@@ -8,8 +9,8 @@ const signMeIn = () => {
 };
 
 const loginButton = () => {
-  const domstring = '<button id="google-auth" class="btn btn-danger">Google Login</button>';
-  utils.printToDom('auth', domstring);
+  const domString = '<button id="google-auth" class="loginBtn loginBtn--google">Login with Google</button>';
+  utils.printToDom('auth', domString);
   $('#google-auth').click(signMeIn);
 };
 

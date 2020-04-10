@@ -1,14 +1,13 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/auth';
-import pinContainer from '../../components/pinContainer/pinContainer';
-
-import boardContainer from '../../components/boardContainer/boardContainer';
-// import pins from '../../components/boardContainer/boardContainer';
+import boards from '../../components/boards/boards';
 
 const authDiv = $('#auth');
 const boardsDiv = $('#boards');
-const pinsDiv = $('#pins');
 const logoutButton = $('#navbar-logout-button');
+const navHeadingDiv = $('#navHeading');
+const navHeadingBoardsDiv = $('#navHeadingBoards');
+const navHeadingPinsDiv = $('#navHeadingPins');
 
 const checkLoginStatus = () => {
   firebase.auth().onAuthStateChanged((user) => {
@@ -16,16 +15,18 @@ const checkLoginStatus = () => {
       authDiv.addClass('hide');
       boardsDiv.removeClass('hide');
       logoutButton.removeClass('hide');
-      boardContainer.buildBoards();
+      navHeadingDiv.addClass('hide');
+      navHeadingBoardsDiv.removeClass('hide');
+      navHeadingPinsDiv.addClass('hide');
+      boards.printBoards();
     } else {
       authDiv.removeClass('hide');
       boardsDiv.addClass('hide');
-      pinsDiv.addClass('hide');
+      navHeadingDiv.removeClass('hide');
+      navHeadingBoardsDiv.addClass('hide');
       logoutButton.addClass('hide');
-      pinContainer.buildPins();
+      navHeadingPinsDiv.addClass('hide');
     }
   });
 };
-
-
 export default { checkLoginStatus };

@@ -1,18 +1,57 @@
-const boardMaker = (boards) => {
-  let domString = '';
-  domString += `<div id="${boards.id}" class="card board">`;
-  domString += '  <div class="card-body">';
-  domString += `    <h5 class="card-title">${boards.name}</h5>`;
-  domString += `    <p class="card-text">${boards.desc}</p>`;
-  domString += '  </div>';
-  domString += `  <img class="card-img-bottom" src="${boards.img}"></img>`;
-  domString += '<div>';
-  domString += '<button class="btn btn-primary">Show Pins <i class="fas fa-thumbtack"></i></button>';
-  domString += '<button class="btn btn-danger">delete Board <i class="fas fa-trash-alt"></i></button>';
-  domString += '</div>';
-  domString += '</div>';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import utils from '../../helpers/utils';
+import boardData from '../../helpers/data/boardData';
+import buildBoardsComp from '../buildBoards/buildBoards';
+import singleBoard from '../pins/pins';
+import pinsData from '../../helpers/data/pinData';
+import './boards.scss';
 
+const boardsDiv = $('#boards');
+const navHeadingBoardsDiv = $('#navHeadingBoards');
+const navHeadingPinsDiv = $('#navHeadingPins');
 
-  return domString;
+const boardEvent = (e) => {
+  const selectedBoardId = e.target.closest('.card').id;
+  boardsDiv.addClass('hide');
+  navHeadingBoardsDiv.addClass('hide');
+  singleBoard.printPins(selectedBoardId);
+  navHeadingPinsDiv.removeClass('hide');
+  $('#pins').removeClass('hide');
 };
-export default { boardMaker };
+
+const deleteBoardEvent = (e) => {
+  const selectedBoardId = e.target.closest('.card').id;
+  boardData.deleteBoard(selectedBoardId)
+    .then(() => {
+      pinsData.getPinsByBoardId(selectedBoardId)
+        .then((selectedPins) => {
+          selectedPins.forEach((pin) => {
+            pinsData.deletePin(pin.id);
+          });
+          // eslint-disable-next-line no-use-before-define
+          printBoards();
+        })
+        .catch((err) => console.error('cannot delete entire board', err));
+    });
+};
+
+const printBoards = () => {
+  const { uid } = firebase.auth().currentUser;
+  boardData.getBoards(uid)
+    .then((boards) => {
+      let domString = '';
+      domString += '<h2 class="text-center"></h2>';
+      domString += '<div class="card-columns justify-content-center m-5">';
+      boards.forEach((board) => {
+        domString += buildBoardsComp.buildBoards(board);
+      });
+      domString += '</div>';
+      utils.printToDom('boards', domString);
+      $('body').on('click', '.show-pins', boardEvent);
+      $('body').on('click', '.delete-btn', deleteBoardEvent);
+    })
+    .catch((err) => console.error('problem with printBoards', err));
+};
+
+export default { printBoards, boardEvent };
