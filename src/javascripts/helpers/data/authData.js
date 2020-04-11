@@ -2,12 +2,14 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import boards from '../../components/boards/boards';
 
+
 const authDiv = $('#auth');
 const boardsDiv = $('#boards');
-const logoutButton = $('#navbar-logout-button');
 const navHeadingDiv = $('#navHeading');
 const navHeadingBoardsDiv = $('#navHeadingBoards');
 const navHeadingPinsDiv = $('#navHeadingPins');
+const newBoardDiv = $('#new-board');
+const logoutButton = $('#navbar-logout-button');
 
 const checkLoginStatus = () => {
   firebase.auth().onAuthStateChanged((user) => {
@@ -18,12 +20,14 @@ const checkLoginStatus = () => {
       navHeadingDiv.addClass('hide');
       navHeadingBoardsDiv.removeClass('hide');
       navHeadingPinsDiv.addClass('hide');
+      newBoardDiv.removeClass('hide');
       boards.printBoards();
     } else {
       authDiv.removeClass('hide');
       boardsDiv.addClass('hide');
       navHeadingDiv.removeClass('hide');
       navHeadingBoardsDiv.addClass('hide');
+      newBoardDiv.addClass('hide');
       logoutButton.addClass('hide');
       navHeadingPinsDiv.addClass('hide');
     }

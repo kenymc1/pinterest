@@ -6,6 +6,7 @@ import buildBoardsComp from '../buildBoards/buildBoards';
 import singleBoard from '../pins/pins';
 import pinsData from '../../helpers/data/pinData';
 import './boards.scss';
+import newBoardComponent from '../newBoard/newBoard';
 
 const boardsDiv = $('#boards');
 const navHeadingBoardsDiv = $('#navHeadingBoards');
@@ -36,12 +37,14 @@ const deleteBoardEvent = (e) => {
     });
 };
 
+
 const printBoards = () => {
   const { uid } = firebase.auth().currentUser;
   boardData.getBoards(uid)
     .then((boards) => {
       let domString = '';
-      domString += '<h2 class="text-center"></h2>';
+      domString += '<h2 class="text-center">Boards</h2>';
+      domString += '<button class=" btn btn-primary text-center" id="create-board-form"><i class="fas fa-plus-square"></i></button>';
       domString += '<div class="card-columns justify-content-center m-5">';
       boards.forEach((board) => {
         domString += buildBoardsComp.buildBoards(board);
@@ -50,6 +53,7 @@ const printBoards = () => {
       utils.printToDom('boards', domString);
       $('body').on('click', '.show-pins', boardEvent);
       $('body').on('click', '.delete-btn', deleteBoardEvent);
+      $('#create-board-form').click(newBoardComponent.createBoard);
     })
     .catch((err) => console.error('problem with printBoards', err));
 };
