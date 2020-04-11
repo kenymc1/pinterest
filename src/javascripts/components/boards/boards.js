@@ -37,6 +37,29 @@ const deleteBoardEvent = (e) => {
     });
 };
 
+const makeABoard = (e) => {
+  e.preventDefault();
+  // make a new board
+  const { uid } = firebase.auth().currentUser;
+  const userId = uid;
+  const newBoard = {
+    name: $('#board-name').val(),
+    desc: $('#board-desc').val(),
+    img: $('#board-img').val(),
+    uid: userId,
+
+  };
+  // eslint-disable-next-line no-console
+  console.log('makeBoard', newBoard);
+  boardData.addBoard(newBoard)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      printBoards();
+      // utils.printToDom('new-board', '');
+    })
+    .catch((err) => console.error('cannot show new board', err));
+};
+
 
 const printBoards = () => {
   const { uid } = firebase.auth().currentUser;
@@ -53,9 +76,10 @@ const printBoards = () => {
       utils.printToDom('boards', domString);
       $('body').on('click', '.show-pins', boardEvent);
       $('body').on('click', '.delete-btn', deleteBoardEvent);
+      $('body').on('click', '#board-creator', makeABoard);
       $('#create-board-form').click(newBoardComponent.createBoard);
     })
     .catch((err) => console.error('problem with printBoards', err));
 };
 
-export default { printBoards, boardEvent };
+export default { printBoards, boardEvent, makeABoard };
