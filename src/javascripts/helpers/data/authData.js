@@ -9,6 +9,7 @@ const navHeadingDiv = $('#navHeading');
 const navHeadingBoardsDiv = $('#navHeadingBoards');
 const navHeadingPinsDiv = $('#navHeadingPins');
 const newBoardDiv = $('#new-board');
+const newPinDiv = $('#new-pin');
 const logoutButton = $('#navbar-logout-button');
 
 const checkLoginStatus = () => {
@@ -21,6 +22,7 @@ const checkLoginStatus = () => {
       navHeadingBoardsDiv.removeClass('hide');
       navHeadingPinsDiv.addClass('hide');
       newBoardDiv.removeClass('hide');
+      newPinDiv.removeClass('hide');
       boards.printBoards();
     } else {
       authDiv.removeClass('hide');
@@ -28,6 +30,7 @@ const checkLoginStatus = () => {
       navHeadingDiv.removeClass('hide');
       navHeadingBoardsDiv.addClass('hide');
       newBoardDiv.addClass('hide');
+      newPinDiv.addClass('hide');
       logoutButton.addClass('hide');
       navHeadingPinsDiv.addClass('hide');
     }
