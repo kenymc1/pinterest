@@ -55,7 +55,7 @@ const makeABoard = (e) => {
     .then(() => {
       // eslint-disable-next-line no-use-before-define
       printBoards();
-      // utils.printToDom('new-board', '');
+      utils.printToDom('new-board', '');
     })
     .catch((err) => console.error('cannot show new board', err));
 };
