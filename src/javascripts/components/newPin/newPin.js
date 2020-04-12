@@ -12,7 +12,7 @@ const createPin = () => {
   domString += '<label for="pin-img">Image Url</label>';
   domString += '<input type="url" class="form-control" id="pin-img" placeholder="Url">';
   domString += '</div>';
-  domString += '<button type="submit" class="btn btn-dark" id="board-creator">Add pin</button>';
+  domString += '<button type="submit" class="btn btn-dark" id="pin-creator">Add pin</button>';
   domString += '</form>';
 
 
