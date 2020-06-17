@@ -7,7 +7,7 @@ Basic App designed to be a pinterest clone.
 html, css, javascript, bootstrap
 
 ## Screenshots
-![Uploading Screen Shot 2020-06-16 at 7.48.06 PM.png…]()
+![]()
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
